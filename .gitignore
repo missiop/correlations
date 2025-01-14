@@ -1,0 +1,48 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+venv/
+crewai_env/
+
+# VS Code specific settings
+.vscode/
+
+# macOS-specific files
+.DS_Store
+
+# Log files
+*.log
+
+# Cache files
+*.cache
+.cache/
+
+# Python packages
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Application-specific
+*.sqlite3
+*.db
+mock_stock_data.json
+data/
+results/
+
+# Streamlit specific
+.streamlit/
+
+# Secrets
+.env
+*.env
+
+
