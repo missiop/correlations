@@ -6,6 +6,8 @@ import json
 import datetime
 from dotenv import load_dotenv
 from agents.sentiment_analysis import SentimentAnalysisAgent
+import logging
+
 
 # Load environment variables
 load_dotenv()
@@ -22,6 +24,7 @@ class DataCollectionAgent:
         os.makedirs(self.cache_dir, exist_ok=True)
 
     def collect_stock_data(self, ticker, from_date=None, to_date=None, sources=None):
+
         """
         Fetch stock fundamentals, news data, and analyze sentiment.
 
@@ -46,6 +49,7 @@ class DataCollectionAgent:
             historical_data, _ = self.ts.get_daily_adjusted(symbol=ticker, outputsize="compact")
 
             # Fetch and analyze news data
+            print("_fetch_news") 
             news_data = self._fetch_news(ticker, from_date, to_date, sources)
 
             for article in news_data:

@@ -3,6 +3,7 @@ import streamlit as st
 
 @st.cache_data
 def fetch_stock_data(_data_agent, ticker, start_date, end_date, sources=None):
+    
     """
     Fetch stock data from the data agent and cache it.
     """
@@ -25,6 +26,7 @@ def filter_articles_by_score(articles, score_threshold):
     Returns:
         list: Filtered list of articles meeting the score threshold.
     """
+    
     filtered = []
     for article in articles:
         sentiment = article.get("sentiment", {})
@@ -34,9 +36,26 @@ def filter_articles_by_score(articles, score_threshold):
     return filtered
 
 
+def filter_articles_by_search_query(articles, search_query):
+    """
+    Filter articles based on a search query.
+    """
+    
+    if not search_query:  # If no query is provided, return all articles
+        return articles
+
+    filtered = []
+    for article in articles:
+        if search_query.lower() in article.get("title", "").lower() or \
+           search_query.lower() in article.get("description", "").lower():
+            filtered.append(article)
+    return filtered
+
+
 
 @st.cache_data
 def fetch_company_overview(_data_agent, ticker):
+    
     """
     Fetch and cache company overview data using Alpha Vantage.
     """

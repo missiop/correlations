@@ -424,11 +424,48 @@ if st.button("Submit"):
                         ax.legend()
                         st.pyplot(fig)
 
+
+                        # Sentiment Summary
+                        st.markdown("### Sentiment Summary")
+                        st.write(sentiment_summary)
+
+                        # Positive Articles
+                        st.markdown("### Positive Articles")
+                        for article in grouped_sentiment["Positive"]:
+                            st.markdown(f"- [{article['title']}]({article['url']})")
+
+                        # Negative Articles
+                        st.markdown("### Negative Articles")
+                        for article in grouped_sentiment["Negative"]:
+                            st.markdown(f"- [{article['title']}]({article['url']})")
+
+                        # Neutral Articles
+                        st.markdown("### Neutral Articles")
+                        for article in grouped_sentiment["Neutral"]:
+                            st.markdown(f"- [{article['title']}]({article['url']})")
+
+                        # Generate AI Summary
+                        try:
+                            summary = client.chat.completions.create(
+                                model="gpt-4",
+                                messages=[
+                                    {"role": "system", "content": "You are a helpful assistant."},
+                                    {"role": "user", "content": "Summarize the following sentiment analysis results:\n\n" + str(sentiment_results)}
+                                ],
+                                max_tokens=300,
+                                temperature=0.7
+                            ).choices[0].message.content 
+                            st.subheader("AI-Generated Summary")
+                            st.write(summary)
+                        except Exception as e:
+                            st.error(f"Error generating AI summary: {str(e)}")
+
                     except Exception as e:
                         st.error(f"Error during sentiment analysis or visualization: {e}")
 
                 else:
                     st.warning("No news data available for sentiment analysis.")
+                    
 
             # Financial Trends Tab
             with tab4:
